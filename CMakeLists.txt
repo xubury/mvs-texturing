@@ -13,7 +13,8 @@ endif()
 #Search for TBB library (release build)
 set(CMAKE_BUILD_TYPE_BACKUP ${CMAKE_BUILD_TYPE})
 set(CMAKE_BUILD_TYPE RELEASE)
-FIND_PACKAGE(TBB REQUIRED)
+find_package(TBB COMPONENTS tbbmalloc_proxy tbbmalloc tbb REQUIRED)
+
 set(CMAKE_BUILD_TYPE ${CMAKE_BUILD_TYPE_BACKUP})
 
 set(CMAKE_CXX_STANDARD 11)
@@ -28,7 +29,7 @@ if(OPENMP_FOUND)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wall -Wextra -Wundef -pedantic")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -Wall -Wextra -Wundef -pedantic -DEIGEN_DONT_VECTORIZE")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfpmath=sse -funroll-loops")
 endif()
 
